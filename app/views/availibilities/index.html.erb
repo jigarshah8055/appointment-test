@@ -1,0 +1,25 @@
+<% if @availibilities.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th style='padding: 10px;'>Date</th>
+        <th style='padding: 10px;'>Start Time</th>
+        <th style='padding: 10px;'>End Time</th>
+        <th style='padding: 10px;'>Actions</th>
+      </tr>
+    </thead>
+    <tbody >
+      <% @availibilities.each do |availibility| %>
+        <tr>
+          <td style='padding: 10px;'><%= availibility.day_date %></td>
+          <td style='padding: 10px;'><%= availibility.start_time %></td>
+          <td style='padding: 10px;'><%= availibility.end_time %></td>
+          <td style='padding: 10px;'><%= link_to  "Edit", edit_availibility_path(availibility) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else%>
+  No Record Found
+<% end %>
+<%= link_to  "Back", root_path %>

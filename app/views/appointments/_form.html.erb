@@ -1,0 +1,39 @@
+<% action_check = action_name.eql?('new') %>
+<%= form_with(model: appointment, url: path, method: method) do |f| %> 
+  <%= f.hidden_field :patient_id, value: current_user.id if current_user.patient? %>
+  <%= f.hidden_field :doctor_id, value: current_user.id if current_user.doctor? %>
+
+  <div class="form-group">
+    <%= f.label :date, 'Appointment Date'%>
+    <% if action_check %>
+      <div class='input-group date' id='datetimepicker'>
+        <%= f.text_field :date, class: 'form-control', required: action_check %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    <% else %>
+      <%= f.text_field :date, readonly: action_check %>
+    <% end %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.label :details, 'Description'%>
+    <%= f.text_area :details, required: true, readonly: !action_check %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.label :doctor_id, 'Select Doctor'%>
+    <%= f.select(:doctor_id, User.all.map {|u| [u.name, u.id] if u.doctor? }.compact, readonly: !action_check) %>
+  </div>
+  <br />
+  <% if current_user.doctor? %>
+    <div class="form-group">
+      <%= f.label :status %>
+      <%= f.select(:status, Appointment.statuses.keys.map {|s| [s.titleize, s]}.compact) %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>

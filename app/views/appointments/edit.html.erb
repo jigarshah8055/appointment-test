@@ -1,0 +1,10 @@
+<%= render partial: 'form', locals: {appointment: @appointment, path: appointment_path, method: :patch} %>
+<%= link_to "Back", root_path %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#datetimepicker').datetimepicker({
+      minDate:new Date()
+    });
+  })
+</script>

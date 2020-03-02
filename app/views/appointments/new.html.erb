@@ -1,0 +1,8 @@
+<%= render partial: 'form', locals: {appointment: @appointment, path: appointments_path, method: :post} %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#datetimepicker').datetimepicker({
+      minDate:new Date()
+    });
+  })
+</script>

@@ -1,0 +1,6 @@
+<%= link_to  "Edit Profile",  edit_user_registration_path(current_user) %>
+<%= link_to  "New Appointment", new_appointment_path if current_user.patient? %>
+<%= link_to  "Availibility", availibilities_path if current_user.doctor? %>
+<h1>Appointments</h1>
+<%= render partial: "#{current_user.user_type}_index", locals: { appointments: @appointments } %>
+

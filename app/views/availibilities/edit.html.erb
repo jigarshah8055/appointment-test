@@ -1,0 +1,29 @@
+<%= form_with(model: @availibility, url: availibility_path, method: :patch) do |f| %> 
+  <%= f.hidden_field :doctor_id, value: current_user.id if current_user.doctor? %>
+
+  <div class="form-group">
+    <%= f.label :day_date, 'Appointment Date'%>
+    <%= f.text_field :day_date, readonly: true %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.label :status, 'Description'%>
+    <%= f.select(:status, Availibility.statuses.keys.map {|s| [s.titleize, s]}.compact) %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.label :start_time, 'Select Doctor'%>
+    <%= f.time_field :start_time %>
+    <%= @availibility.start_time.strftime("%I %M %p") %>
+  </div>
+  <br />
+  <div class="form-group">
+    <%= f.label :end_time, 'Select Doctor'%>
+    <%= f.time_field :end_time %>
+    <%= @availibility.end_time.strftime("%I %M %p") %>
+  </div>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>
+<%= link_to  "Back", availibilities_path %>
